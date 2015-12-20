@@ -1,3 +1,4 @@
+import sys
 
 def read_sensor(name):
     f = open(name)
@@ -13,12 +14,15 @@ sensors = [
 
 import time, json, datetime, calendar
 
-with open('out.txt', 'w') as file:
-    while True:
+output = sys.argv[1]
+print("Writing to {}".format(output))
+
+while True:
+    with open(output, 'a') as file:
         temps = {
-            'time': time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
-            'epoch': calendar.timegm(time.gmtime()),
-            'temps': [read_sensor(s) for s in sensors]
+		'time': time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
+		'epoch': calendar.timegm(time.gmtime()),
+		'temps': [read_sensor(s) for s in sensors]
         }
         file.write(json.dumps(temps) + ',\n')
         file.flush()
