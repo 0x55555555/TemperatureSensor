@@ -64,10 +64,32 @@
         .scale(y)
         .orient("left");
 
+    var movingAvg = function(n) {
+      return function (points) {
+        points = points.map(function(each, index, array) {
+          var to = index + n - 1;
+          var subSeq, sum;
+          if (to < points.length) {
+            subSeq = array.slice(index, to + 1);
+              sum = subSeq.reduce(function(a,b) { 
+                return [a[0] + b[0], a[1] + b[1]]; 
+              });
+              return sum.map(function(each) { return each / n; });
+            }
+            return undefined;
+        });
+        points = points.filter(function(each) { return typeof each !== 'undefined' })
+        // Note that one could re-interpolate the points 
+        // to form a basis curve (I think...)
+        return points.join("L");
+      }
+    }
+
     var line = function(id) {
       return d3.svg.line()
         .x(function(d) { return x(scale_x(d.epoch)); })
-        .y(function(d) { return y(d.temps[id]); });
+        .y(function(d) { return y(d.temps[id]); })
+        .interpolate(movingAvg(12));
     }
 
     var svg = d3.select("body").append("svg")
