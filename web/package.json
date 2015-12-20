@@ -1,0 +1,25 @@
+{
+  "name": "temperature_sensor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorj1988/TemperatureSensor.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/jorj1988/TemperatureSensor/issues"
+  },
+  "homepage": "https://github.com/jorj1988/TemperatureSensor#readme",
+  "dependencies": {
+    "async": "^1.5.0",
+    "express": "^4.13.3",
+    "fs": "0.0.2",
+    "path": "^0.12.7",
+    "process": "^0.11.2"
+  }
+}
