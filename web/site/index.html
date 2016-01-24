@@ -98,8 +98,22 @@
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.json("/data", function(error, data) {
+    d3.json("/data", function(error, str_data) {
       if (error) throw error;
+
+      json_str = '[' + str_data.join('').slice(0, -2) + ']';
+      data = [];
+      try
+      {
+        data = JSON.parse(json_str);
+      }
+      catch(e)
+      {
+          console.log("Invalid json returned", e, json_str);
+      }
+
+      data.sort(function(a, b) { return a.epoch-b.epoch; });
+
 
       x.domain(d3.extent(data, function(d) { return scale_x(d.epoch); }));
       y.domain(d3.extent(data, function(d) { return d.temps[0]; }));
