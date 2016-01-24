@@ -1,4 +1,5 @@
-import sys
+import time, json, datetime, calendar, sys
+from os import listdir, path
 
 def read_sensor(name):
     f = open(name)
@@ -6,15 +7,12 @@ def read_sensor(name):
     f.close()
     return float(out[1].split(" ")[9][2:])/1000
 
-sensors = [
-    "/sys/bus/w1/devices/28-000007215308/w1_slave",
-    "/sys/bus/w1/devices/28-000007481742/w1_slave",
-    "/sys/bus/w1/devices/28-00000748446c/w1_slave"
-]
+sensor_root = sys.argv[1]
+sensors = [path.join(sensor_root, f) for f in listdir(sensor_root) ]
+print("Using sensors {}".format(sensors))
 
-import time, json, datetime, calendar
 
-output = sys.argv[1]
+output = sys.argv[2]
 print("Writing to {}".format(output))
 
 while True:

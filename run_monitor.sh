@@ -6,4 +6,4 @@ cd $DIR
 
 (cd web ; node server.js ../data/ &)
 
-python ./Monitor.py $DIR/data/live_output.json
+python ./Monitor.py $DIR/sensors/ $DIR/data/live_output.json
